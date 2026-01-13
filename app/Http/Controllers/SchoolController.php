@@ -18,13 +18,15 @@ class SchoolController extends Controller
     public function school_data(Request $request){
 
         $data = $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name'=>'required',
             'email'=>'required|email',
             'password'=>'required|confirmed',
         ]);
+        $file = $request->file('image')->store('images/schools', 'public');
 
         $data['status']=10;
-        $data['image']=$request->image ?? null;
+        $data['image'] = $file ?? null;
         $data['scl_number']=$request->scl_number ?? null;
 
 

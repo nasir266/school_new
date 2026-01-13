@@ -29,7 +29,7 @@
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                                             aria-expanded="false">...</a>
-        
+
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item" href="#"><i
                                                     class="fas fa-times text-orange-red"></i>Close</a>
@@ -40,48 +40,68 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form method="post" class="new-added-form">
+                                <form method="post" class="new-added-form" action="{{ route('addParents') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
-                                        
-                                        
+
+
                                         <div class="col-xl-4 col-lg-6 col-12 form-group">
                                             <label>Full Name*</label>
-                                            <input name="name" type="text" placeholder="Enter Name" class="form-control" required>
+                                            <input name="name" id="name" type="text" placeholder="Enter Name" class="form-control" required>
                                         </div>
                                         <div class="col-xl-4 col-lg-6 col-12 form-group">
-                                            <label>E-mail*</label>
-                                            <input name="email" type="email" placeholder="Enter Email" class="form-control" required>
+                                            <label>Image*</label>
+                                            <input name="image" type="file" accept="image/*" class="form-control" required>
                                         </div>
                                         <div class="col-xl-4 col-lg-6 col-12 form-group">
-                                            <label>Phone No*</label>
-                                            <input name="phone" type="text" placeholder="Enter Phone Number" class="form-control" required>
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6 col-12 form-group">
                                             <label>CNIC*</label>
-                                            <input name="cnic" type="text" placeholder="Enter CNIC" class="form-control" required> 
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6 col-12 form-group">
-                                            <label>D-O-B*</label>
-                                            <input name="DOB" type="date" placeholder="Enter Date of Birth" class="form-control" required>
+                                            <input name="cnic" type="text" placeholder="Enter CNIC" class="form-control" required>
                                         </div>
                                         <div class="col-xl-4 col-lg-6 col-12 form-group">
-                                            <label>Password*</label>
-                                            <input name="password" type="password" placeholder="Enter Password" class="form-control" required>
+                                            <label>E-mail</label>
+                                            <input name="email" id="email" type="email" placeholder="Enter Email" class="form-control" readonly>
                                         </div>
                                         <div class="col-xl-4 col-lg-6 col-12 form-group">
-                                            <label>Confirm Password*</label>
-                                            <input name="c_password" type="password" placeholder="Confirm Password" class="form-control" required>
+                                            <label>Password</label>
+                                            <input name="password" id="password" type="password" placeholder="Enter password..." class="form-control">
+                                            <i class="fa fa-eye toggle-eye" onclick="togglePassword('password', this)"></i>
                                         </div>
                                         <div class="col-xl-4 col-lg-6 col-12 form-group">
-                                            <label>Joining Date*</label>
-                                            <input name="j_date" type="date" placeholder="Joining Date" class="form-control" required>
+                                            <label>Confirm Password</label>
+                                            <input name="password_confirmation" id="confirm_password" type="password" placeholder="Confirm password..." class="form-control">
+                                            <i class="fa fa-eye toggle-eye" onclick="togglePassword('confirm_password', this)"></i>
                                         </div>
-                                        <div class="col-xl-12 col-lg-12 col-12 form-group">
-                                            <label for="exampleInputPassword1">Address</label>
-                                            <textarea cols="12" rows="4" name="address" placeholder="Address" class="form-control"></textarea>
+                                        <div class="col-xl-4 col-lg-6 col-12 form-group">
+                                            <label>Mobile Number*</label>
+                                            <input name="phone1" type="number" placeholder="Enter Phone Number" class="form-control" required>
                                         </div>
-                                        
+                                        <div class="col-xl-4 col-lg-6 col-12 form-group">
+                                            <label>Mobile Number 2</label>
+                                            <input name="phone2" type="number" placeholder="Enter Phone Number" class="form-control" >
+                                        </div>
+                                        <div class="col-xl-4 col-lg-6 col-12 form-group">
+                                            <label>WhatsApp Nummber*</label>
+                                            <input name="phoneWhatsApp" type="number" placeholder="Enter Phone Number" class="form-control" required>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-6 col-12 form-group">
+                                            <label>Relationship*</label>
+                                            <select name="relationship" class="select2" required>
+                                                <option value="">Relationship</option>
+                                                <option value="father">Father</option>
+                                                <option value="mother">Mother</option>
+                                                <option value="gardian">Guardian</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-6 col-12 form-group">
+                                            <label>Occupation*</label>
+                                            <input name="occupation" type="text" placeholder="Enter Your Occupation" class="form-control" required>
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-6 col-12 form-group">
+                                            <label for="exampleInputPassword1">Address*</label>
+                                            <textarea cols="12" rows="4" name="address" placeholder="Address" class="form-control" required></textarea>
+                                        </div>
+
                                         <div class="col-12 form-group mg-t-8">
                                             <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Submit</button>
                                             <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
@@ -91,7 +111,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
         </div>
 
         <div class="card height-auto">
@@ -117,10 +137,10 @@
                         <form class="mg-b-20">
                             <div class="row gutters-8">
                                 <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Roll ..." class="form-control">
+                                    <input id="searchEmail" type="text" placeholder="Search by email ..." class="form-control">
                                 </div>
                                 <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Name ..." class="form-control">
+                                    <input id="searchName" type="text" placeholder="Search by Name ..." class="form-control">
                                 </div>
                                 <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
                                     <input type="text" placeholder="Search by Class ..." class="form-control">
@@ -131,7 +151,7 @@
                             </div>
                         </form>
                         <div class="table-responsive">
-                            <table class="table display data-table text-nowrap">
+                            <table class="table display data-table text-nowrap" id="parentTable">
                                 <thead>
                                     <tr>
                                         <th>
@@ -140,52 +160,61 @@
                                                 <label class="form-check-label">#</label>
                                             </div>
                                         </th>
+                                        <th>Photos</th>
                                         <th>Full Name</th>
                                         <th>Email</th>
-                                        <th>Phone</th>
+                                        <th>Phone 1</th>
+                                        <th>Phone 2</th>
+                                        <th>Phone WhatsApp</th>
                                         <th>CNIC</th>
-                                        <th>DOB</th>
-                                        <th>Joining Date</th>
+                                        <th>Relationship</th>
+                                        <th>Occupation</th>
                                         <th>Address</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   
+
+                                @foreach($parents as $parent)
                                     <tr>
                                         <td>
                                             <div class="form-check">
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">1</label>
+                                                <label class="form-check-label">{{ $loop->iteration }}</label>
                                             </div>
                                         </td>
-                                        <td>2222</td>
-                                        <td>3333</td>
-                                        <td>3333</td>
-                                        <td>3333</td>
-                                        <td>3333</td>
-                                        <td>3333</td>
-                                        <td>3333</td>
+                                        <td class="text-center">
+                                            <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden;">
+                                                <img  src="{{ asset('/storage/'.$parent->image) }}" style="width: 100%;height: 100%; object-fit: cover;" alt="parent">
+                                            </div>
+                                        </td>
+                                        <td>{{ $parent->name }}</td>
+                                        <td>{{ $parent->email }}</td>
+                                        <td>{{ $parent->phone1 }}</td>
+                                        <td>{{ $parent->phone2 }}</td>
+                                        <td>{{ $parent->phone_whatsapp }}</td>
+                                        <td>{{ $parent->cnic }}</td>
+                                        <td>{{ $parent->relationship }}</td>
+                                        <td>{{ $parent->occupation }}</td>
+                                        <td>{{ $parent->address }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                                    aria-expanded="false">
+                                                   aria-expanded="false">
                                                     <span class="flaticon-more-button-of-three-dots"></span>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a class="dropdown-item" href="#"><i
-                                                            class="fas fa-times text-orange-red"></i>Close</a>
-                                                    <a class="dropdown-item" href="#"><i
                                                             class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
                                                     <a class="dropdown-item" href="#"><i
-                                                            class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
+                                                            class="fas fa-times text-orange-red"></i>Delete</a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-                                   
-                                   
-                                    
+                                @endforeach
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -196,6 +225,85 @@
 
         <!-- Footer Area End Here -->
     </div>
+    <script>
+        // for generate email
+        document.getElementById('name').addEventListener('input', function () {
+            let result = this.value.replace(/[^a-zA-Z0-9 ]/g, '');
+            this.value = result;
+            let userText = result
+            .toLowerCase()
+            .replace(/\s+/g, '');
+            let extraText = '@gmail.com';
 
+            document.getElementById('email').value = userText
+            ? userText + extraText
+            : '';
+        });
+
+
+            document.addEventListener("DOMContentLoaded", function () {
+            const password = generatePassword();
+            document.getElementById("password").value = password;
+            document.getElementById("confirm_password").value = password;
+        });
+
+            function generatePassword() {
+            const length = 12;
+            const chars =
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@";
+
+            let password = "";
+            for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * chars.length);
+            password += chars[randomIndex];
+        }
+            return password;
+        }
+
+            //     toggle input password fields
+            function togglePassword(fieldId, icon) {
+            const field = document.getElementById(fieldId);
+
+            if (field.type === "password") {
+            field.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            field.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+        }
+        //  for search email
+        document.getElementById("searchEmail").addEventListener("keyup", function () {
+            let searchValue = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#parentTable tbody tr");
+
+            rows.forEach(row => {
+                let email = row.cells[2].textContent.toLowerCase(); // Email column
+
+                if (email.includes(searchValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+        // search by name
+        document.getElementById("searchName").addEventListener("keyup", function () {
+            let value = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#parentTable tbody tr");
+
+            rows.forEach(row => {
+                let name  = row.cells[1].textContent.toLowerCase(); // Name column
+
+                if (name.includes(value)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+    </script>
     <!-- Page Area End Here -->
 @endsection

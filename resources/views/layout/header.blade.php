@@ -173,8 +173,8 @@
                                 <h5 class="item-title">{{ \Illuminate\Support\Str::limit(Auth::user()->name, 12, '...') }}</h5>
                                 <span>Admin</span>
                             </div>
-                            <div class="admin-img">
-                                <img src="{{ asset('admin/img/figure/admin.jpg') }}" alt="Admin">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden;">
+                                <img  src="{{ asset('/storage/'.Auth::user()->image) }}" style="width: 100%;height: 100%; object-fit: cover;">
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -444,8 +444,13 @@
                             <a href="{{ route('Incharge') }}" class="nav-link"><i class="fas fa-chalkboard-teacher"></i><span>Class Incharge</span></a>
                         </li>
                         </li>
-                        <li class="nav-item ">
-                            <a href="{{ route('Fee') }}" class="nav-link"><i class="fas fa-coins"></i> <span>Fee</span></a>
+                        <li class="nav-item sidebar-nav-item">
+                                <a href="#" class="nav-link"><i class="fas fa-coins"></i><span>Fee</span></a>
+                                <ul class="nav sub-group-menu">
+                                    <li class="nav-item ">
+                                        <a href="{{ route('Fee') }}" class="nav-link"><i class="fas fa-angle-right"></i>Add Fee Type</a>
+                                    </li>
+                                </ul>
                         </li>
                         <li class="nav-item ">
                             <a href="{{ route('Parents') }}" class="nav-link"><i class="flaticon-couple"></i> <span>Parents</span></a>
