@@ -108,9 +108,20 @@ Route::post('/addSection',[SectionController::class , 'addSection'] )->name('add
 // delete
 Route::get('deleteSection/{id}',[SectionController::class , 'delete']);
 
-// ============== Reseption
-Route::get('/ApplicationForm',[ReseptionController::class , 'ApplicationForm'] )->name('ApplicationForm');
+// Show form
+Route::get('/ApplicationForm', [ReseptionController::class, 'ApplicationForm'])
+    ->name('ApplicationForm');
 
+// Store form data
+Route::post('/ApplicationForm', [ReseptionController::class, 'store'])
+    ->name('ApplicationForm.store');
+Route::get('/list_ApplicationForm', [ReseptionController::class, 'list_ApplicationForm'])
+    ->name('list_ApplicationForm');
+Route::get('/application-form/{id}/edit', [ReseptionController::class, 'edit'])
+    ->name('ApplicationForm.edit');
+
+Route::post('/application-form/{id}/update', [ReseptionController::class, 'update'])
+    ->name('ApplicationForm.update');
 
 //========= Cards
 // ==== Student Card By Class

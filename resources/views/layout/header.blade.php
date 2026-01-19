@@ -410,9 +410,14 @@
                                 <li class="nav-item">
                                     <a href="{{ route('ApplicationForm') }}" class="nav-link"><i class="fas fa-angle-right"></i>Application Form</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('list_ApplicationForm') }}" class="nav-link"><i class="fas fa-angle-right"></i>list_Application Form</a>
+                                </li>
 
                             </ul>
+
                         </li>
+
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="fas fa-id-badge"></i><span>Cards</span></a>
                             <ul class="nav sub-group-menu">
