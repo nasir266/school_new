@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\AjaxController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\mySessionController;
 use App\Http\Controllers\ClassController;
@@ -26,6 +27,18 @@ use App\Http\Controllers\PromoteController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\ResourceBrowserController;
+
+
+//==============Ajax Route===========================
+// class to fee
+Route::get('/get-class-fee/{id}', [AjaxController::class, 'getClassFee']);
+// depart to session
+Route::get('/get-sessions/{deptId}', [AjaxController::class, 'getSessions']);
+// depart to classes
+Route::get('/get-classes/{deptId}', [AjaxController::class, 'getClasses']);
+// Classes  to sections
+Route::get('/get-sections/{classId}', [AjaxController::class, 'getSections']);
+
 
 
 
@@ -146,15 +159,18 @@ Route::get('/Incharge',[InchargeController::class , 'Incharge'] )->name('Incharg
 
 //========= Add Fee Route
 Route::get('/Fee',[FeeController::class , 'Fee'] )->name('Fee');
+Route::post('/feeType',[FeeController::class , 'feeType'] )->name('feeType');
 
 //========= Add Parents Route
 Route::get('/Parents',[ParentsController::class , 'Parents'] )->name('Parents');
+Route::post('/addParents',[ParentsController::class , 'addParents'] )->name('addParents');
 
 //========= Add Teachers Route
 Route::get('/Teachers',[TeachersController::class , 'Teachers'] )->name('Teachers');
 
 //========= Add Students Route
 Route::get('/Students',[StudentsController::class , 'Students'] )->name('Students');
+Route::post('/addStudents',[StudentsController::class , 'addStudents'] )->name('addStudents');
 // ==== List By Class==
 Route::get('/SelectClass',[StudentsController::class , 'SelectClass'] )->name('SelectClass');
 // ==== List By Class==

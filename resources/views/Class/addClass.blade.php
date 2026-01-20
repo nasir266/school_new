@@ -44,15 +44,15 @@
                                     @csrf
                                     <div class="row">
 
-                                        <div class="col-xl-12 col-lg-12 col-12 form-group">
+                                        <div class="col-xl-6 col-lg-6 col-12 form-group">
                                             <label>Class Name</label>
                                             <input name="class" type="text" placeholder="Enter Class Name..." class="form-control">
                                         </div>
-                                        <div class="col-xl-12 col-lg-12 col-12 form-group">
+                                        <div class="col-xl-6 col-lg-6 col-12 form-group">
                                             <label>Add Fee</label>
                                             <input name="fee" type="number" placeholder="Enter Fee..." class="form-control">
                                         </div>
-                                        <div class="col-xl-12 col-lg-12 col-12 form-group">
+                                        <div class="col-xl-6 col-lg-6 col-12 form-group">
                                             <label>Select Fee Type*</label>
                                             <select name="fee_type" class="select2">
                                                 <option value="">Select Type</option>
@@ -62,7 +62,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-xl-12 col-lg-12 col-12 form-group">
+                                        <div class="col-xl-6 col-lg-6 col-12 form-group">
                                             <label>Select Department</label>
                                             <select name="department" class="select2">
                                                 <option value="">Select Department</option>

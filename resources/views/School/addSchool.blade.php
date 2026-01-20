@@ -22,7 +22,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('school_data') }}" method="post" class="new-added-form">
+                                <form action="{{ route('school_data') }}" method="post" class="new-added-form" enctype="multipart/form-data">
                                     @csrf
                                     <!-- School Information -->
                                     <div class="heading-layout1">
@@ -54,7 +54,7 @@
                                         </div>
                                         <div class="col-xl-4 col-lg-6 col-12 form-group">
                                             <label>Image</label>
-                                            <input name="image" type="file" placeholder="Enter Logo" class="form-control">
+                                            <input name="image" type="file" placeholder="Enter Logo" accept="image/*" class="form-control">
                                         </div>
                                         <div class="col-xl-12 col-lg-6 col-12 form-group">
                                             <label>Address</label>

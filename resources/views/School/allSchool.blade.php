@@ -64,6 +64,7 @@
                                                 <label class="form-check-label">ID</label>
                                             </div>
                                         </th>
+                                        <th>Photos</th>
                                         <th>School Name</th>
                                         <th>Slogan</th>
                                         <th>School Email</th>
@@ -91,6 +92,11 @@
                                             <div class="form-check">
                                                 <input type="checkbox" class="form-check-input">
                                                 <label class="form-check-label">#00{{$loop->iteration}}</label>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden;">
+                                                <img  src="{{ asset('/storage/'.$list->image) }}" style="width: 100%;height: 100%; object-fit: cover;" alt="parent">
                                             </div>
                                         </td>
                                         <td>{{$list->name}}</td>
