@@ -35,11 +35,6 @@
     <script src="{{ asset('admin/js/modernizr-3.6.0.min.js') }}"></script>
 
 
-
-
-
-
-
     <style>
         /* Fixed Header */
         .navbar.header-menu-one {
@@ -463,6 +458,9 @@
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item ">
                                     <a href="{{ route('Students') }}" class="nav-link"><i class="fas fa-angle-right"></i>Add Students</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a href="{{ route('allStudents') }}" class="nav-link"><i class="fas fa-angle-right"></i>All Students</a>
                                 </li>
                                 <li class="nav-item ">
                                     <a href="{{ route('SelectClass') }}" class="nav-link"><i class="fas fa-angle-right"></i>List by Class</a>

@@ -34,6 +34,7 @@ class AjaxController extends Controller
             ->orderBy('id', 'ASC')
             ->get();
 
+
         return response()->json($classes);
     }
 // classes to sections

@@ -50,8 +50,8 @@
                                             <input name="name" id="name" type="text" placeholder="Enter Name" class="form-control" required>
                                         </div>
                                         <div class="col-xl-4 col-lg-6 col-12 form-group">
-                                            <label>Image*</label>
-                                            <input name="image" type="file" accept="image/*" class="form-control" required>
+                                            <label>Image</label>
+                                            <input name="image" type="file" accept="image/*" class="form-control" >
                                         </div>
                                         <div class="col-xl-4 col-lg-6 col-12 form-group">
                                             <label>CNIC*</label>

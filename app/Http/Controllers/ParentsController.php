@@ -23,16 +23,23 @@ class ParentsController extends Controller
     {
 
         $data = $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required|confirmed',
         ]);
 
-        $file = $request->file('image')->store('images/parents', 'public');
-
+        // $file = $request->file('image')->store('images/parents', 'public');
+               // If user uploaded image
+        if ($request->hasFile('image')) {
+            $file = $request->file('image')->store('images/parents', 'public');
+            $data['image'] = $file;
+        } else {
+            // Use default image
+            $data['image'] = 'images/students/AbznCHQHkQFdlWabExWoIAJX4OZmaprSPwWwltBw.png';
+        }
         $data['status'] = 14;
-        $data['image'] = $file ?? null;
+        // $data['image'] = $file ?? null;  
 
 
         $data = User::create($data);

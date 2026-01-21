@@ -138,6 +138,7 @@ Route::get('/SingleStaffCard',[CardController::class , 'SingleStaffCard'] )->nam
 
 //========= Staff Route
 Route::get('/staff',[StaffController::class , 'staff'] )->name('staff');
+Route::post('/addStaff',[StaffController::class , 'addStaff'] )->name('addStaff');
 
 
 //========= Add Subject Route
@@ -156,10 +157,14 @@ Route::post('/addParents',[ParentsController::class , 'addParents'] )->name('add
 
 //========= Add Teachers Route
 Route::get('/Teachers',[TeachersController::class , 'Teachers'] )->name('Teachers');
+Route::post('/addTeachers',[TeachersController::class , 'addTeachers'] )->name('addTeachers');
+
 
 //========= Add Students Route
 Route::get('/Students',[StudentsController::class , 'Students'] )->name('Students');
 Route::post('/addStudents',[StudentsController::class , 'addStudents'] )->name('addStudents');
+//========= Add Students Route
+Route::get('/allStudents',[StudentsController::class , 'allStudents'] )->name('allStudents');
 // ==== List By Class==
 Route::get('/SelectClass',[StudentsController::class , 'SelectClass'] )->name('SelectClass');
 // ==== List By Class==

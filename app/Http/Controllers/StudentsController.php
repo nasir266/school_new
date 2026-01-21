@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 class StudentsController extends Controller
 {
-    public function Students(){
+    public function allStudents(){
         $feeType = feeType::all();
         $session = session::all();
         $class = myClass::all();
@@ -69,7 +69,7 @@ class StudentsController extends Controller
         }
 
 
-       return view('Students.addStudents')->with(['parents' => $parents, 'feeType' => $feeType, 'session' => $session, 'class' => $class, 'students' => $students , 'fees'=>$feeArray]);
+       return view('Students.allStudent')->with(['parents' => $parents, 'feeType' => $feeType, 'session' => $session, 'class' => $class, 'students' => $students , 'fees'=>$feeArray]);
     }
 
     public function addStudents(Request $request){
@@ -144,11 +144,65 @@ class StudentsController extends Controller
 
 
 
-        return back()->with(['status'=> 'successfully record has been added!','student'=>$student]);
+        return back()->with(['status'=> 'successfully record has been added!']);
 
         }
 
 
+    public function Students(){
+        $feeType = feeType::all();
+        $session = session::all();
+        $class = myClass::all();
+        $parents = DB::table('parents')
+            ->join('users', 'parents.fk_u_id', '=', 'users.id')
+            ->select(
+                'parents.id as p_id',
+                'parents.*',
+                'users.*'
+            )
+            ->get();
+        $students = DB::table('students')
+            ->join('users AS student_user', 'students.fk_u_id', '=', 'student_user.id')
+            ->join('class', 'students.fk_class_id', '=', 'class.id')
+            ->join('session', 'students.fk_session_id', '=', 'session.id')
+            ->join('section', 'students.fk_sec_id', '=', 'section.id')
+            ->join('parents', 'students.fk_parent_id', '=', 'parents.id')
+            ->join('users AS parent_user', 'parents.fk_u_id', '=', 'parent_user.id') // <--- important
+            ->select(
+                'student_user.*',
+                'students.*',
+                'class.className',
+                'session.session',
+                'section.section',
+//                'student_user.name AS student_name.',
+                'parent_user.name AS parent_name'
+            )
+            ->get();
+        $feeArray = [];
+        foreach ($students as $student) {
+
+            $ids = explode('#', $student->fee_type_id);
+            $values = explode('#', $student->fee_type_value);
+
+            $types = DB::table('fee_type')
+                ->whereIn('id', $ids)
+                ->pluck('fee_type', 'id');
+
+            $singleStudentFees = [];
+
+            // build array ➜ ['Admission Fee' => 2000, 'Computer Fee' => 3000]
+            foreach ($ids as $i => $id) {
+                $typeName = $types[$id];
+                $singleStudentFees[$typeName] = $values[$i];
+            }
+
+            // push into main array
+            $feeArray[] = $singleStudentFees;
+
+        }
+
+       return view('Students.addStudents')->with(['parents' => $parents, 'feeType' => $feeType, 'session' => $session, 'class' => $class, 'students' => $students , 'fees'=>$feeArray]);
+    }
     public function SelectClass(){
        return view('Students.listByClass');
     }
