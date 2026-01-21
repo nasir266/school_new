@@ -152,10 +152,10 @@
                         <form class="mg-b-20">
                             <div class="row gutters-8">
                                 <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Roll ..." class="form-control">
+                                    <input id="searchEmail" type="text" placeholder="Search by email ..." class="form-control">
                                 </div>
                                 <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Name ..." class="form-control">
+                                    <input id="searchName" type="text" placeholder="Search by Name ..." class="form-control">
                                 </div>
                                 <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
                                     <input type="text" placeholder="Search by Class ..." class="form-control">
@@ -166,7 +166,7 @@
                             </div>
                         </form>
                         <div class="table-responsive">
-                            <table class="table display data-table text-nowrap">
+                            <table class="table display data-table text-nowrap" id="parentTable">
                                 <thead>
                                     <tr>
                                         <th>
@@ -297,7 +297,7 @@
             let rows = document.querySelectorAll("#parentTable tbody tr");
 
             rows.forEach(row => {
-                let email = row.cells[2].textContent.toLowerCase(); // Email column
+                let email = row.cells[3].textContent.toLowerCase(); // Email column
 
                 if (email.includes(searchValue)) {
                     row.style.display = "";
@@ -312,7 +312,7 @@
             let rows = document.querySelectorAll("#parentTable tbody tr");
 
             rows.forEach(row => {
-                let name  = row.cells[1].textContent.toLowerCase(); // Name column
+                let name  = row.cells[2].textContent.toLowerCase(); // Name column
 
                 if (name.includes(value)) {
                     row.style.display = "";

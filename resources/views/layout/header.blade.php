@@ -394,6 +394,9 @@
                                     <a href="{{ route('session') }}" class="nav-link"><i class="fas fa-angle-right"></i>Session</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{{ route('class') }}" class="nav-link"><i class="fas fa-angle-right"></i>Class</a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ route('section') }}" class="nav-link"><i class="fas fa-angle-right"></i>Section</a>
                                 </li>
 
@@ -425,10 +428,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item ">
-                            <a href="{{ route('class') }}" class="nav-link"><i
-                                    class="flaticon-maths-class-materials-cross-of-a-pencil-and-a-ruler"></i><span>Class</span></a>
-                        </li>
+
                         <li class="nav-item ">
                             <a href="{{ route('staff') }}" class="nav-link"><i class="fas fa-user-tie"></i> <span>Staff</span></a>
                         </li>

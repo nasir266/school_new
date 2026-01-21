@@ -280,7 +280,7 @@
             let rows = document.querySelectorAll("#parentTable tbody tr");
 
             rows.forEach(row => {
-                let email = row.cells[2].textContent.toLowerCase(); // Email column
+                let email = row.cells[3].textContent.toLowerCase(); // Email column
 
                 if (email.includes(searchValue)) {
                     row.style.display = "";
@@ -295,7 +295,7 @@
             let rows = document.querySelectorAll("#parentTable tbody tr");
 
             rows.forEach(row => {
-                let name  = row.cells[1].textContent.toLowerCase(); // Name column
+                let name  = row.cells[2].textContent.toLowerCase(); // Name column
 
                 if (name.includes(value)) {
                     row.style.display = "";
