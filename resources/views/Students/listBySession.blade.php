@@ -29,7 +29,7 @@
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                                             aria-expanded="false">...</a>
-        
+
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item" href="#"><i
                                                     class="fas fa-times text-orange-red"></i>Close</a>
@@ -40,25 +40,27 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form method="post" class="new-added-form">
+                                <form method="POST" action="{{ route('show.students.by.session') }}" class="new-added-form">
                                     @csrf
                                     <div class="row">
-                                        
-                                        
+
+
                                         <div class="col-xl-12 col-lg-12 col-12 form-group">
                                             <label>Select Class*</label>
-                                            <select name="department" class="select2">
+                                            <select name="class_id" class="select2">
                                                 <option value="">Select User Type</option>
-                                                <option value="14">class 09</option>
-                                                <option value="15">class 08</option>
+                                                @foreach($classes as $class)
+                                                    <option value="{{ $class->id }}">{{ $class->className }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-12-xxxl col-xl-12 col-lg-12 col-12 form-group">
                                             <label>Select Session</label>
-                                            <select name="department" class="select2">
+                                            <select name="session_id" class="select2">
                                                 <option value="">Select User Type</option>
-                                                <option value="14">2023</option>
-                                                <option value="15">2023</option>
+                                                @foreach($sessions as $session)
+                                                    <option value="{{ $session->id }}">{{ $session->session }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                             <div class="col-12 form-group mg-t-8">
@@ -70,16 +72,16 @@
                             </div>
                         </div>
                     </div>
-                    
+
         </div>
 
-       
+
         <!-- Footer Area Start Here -->
         @include('layout.footer')
 
         <!-- Footer Area End Here -->
     </div>
-    
+
 
     <!-- Page Area End Here -->
 @endsection

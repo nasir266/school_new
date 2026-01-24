@@ -169,12 +169,28 @@ Route::post('/addParents',[ParentsController::class , 'addParents'] )->name('add
 Route::get('/Teachers',[TeachersController::class , 'Teachers'] )->name('Teachers');
 
 //========= Add Students Route
+// Students routes
 Route::get('/Students',[StudentsController::class , 'Students'] )->name('Students');
 Route::post('/addStudents',[StudentsController::class , 'addStudents'] )->name('addStudents');
-// ==== List By Class==
+
+// ==== List By Class ====
+// Show select class form
 Route::get('/SelectClass',[StudentsController::class , 'SelectClass'] )->name('SelectClass');
-// ==== List By Class==
+
+// Handle form submit → show students for selected class
+Route::post('/SelectClass',[StudentsController::class , 'ShowStudentsByClass'])->name('show.students.by.class');
+
+// ==== List By Session ====
 Route::get('/SelectSession',[StudentsController::class , 'SelectSession'] )->name('SelectSession');
+Route::post('/SelectSession',
+    [StudentsController::class , 'ShowStudentsBySession']
+)->name('show.students.by.session');
+Route::get('/SelectSection',[StudentsController::class , 'SelectSection'] )->name('SelectSection');
+Route::post('/SelectSection',
+    [StudentsController::class , 'ShowStudentsBySection']
+)->name('show.students.by.section');
+Route::get('/get-sections/{class_id}', [StudentsController::class, 'getSections']);
+
 
 //========= Add Students Fee Route
 Route::get('/StudentsFee',[StudentsFeeController::class , 'StudentsFee'] )->name('StudentsFee');

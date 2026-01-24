@@ -150,10 +150,238 @@ class StudentsController extends Controller
 
 
     public function SelectClass(){
-       return view('Students.listByClass');
+        $classes = myClass::all();
+        return view('Students.listByClass', compact('classes'));
     }
+    public function ShowStudentsByClass(Request $request){
+        $class_id = $request->department; // blade me select name="department"
+
+        $students = DB::table('students')
+            ->join('users AS student_user', 'students.fk_u_id', '=', 'student_user.id')
+            ->join('class', 'students.fk_class_id', '=', 'class.id')
+            ->join('session', 'students.fk_session_id', '=', 'session.id')
+            ->join('section', 'students.fk_sec_id', '=', 'section.id')
+            ->join('parents', 'students.fk_parent_id', '=', 'parents.id')
+            ->join('users AS parent_user', 'parents.fk_u_id', '=', 'parent_user.id')
+            ->select(
+                'student_user.name AS student_name',
+                'student_user.email',
+                'student_user.image AS student_image', // <--- alias for image
+                'students.phone',
+                'students.phone2',
+                'students.religion',
+                'students.cnic',
+                'students.date_of_birth',
+                'students.gender',
+                'students.join_date',
+                'students.referance',
+                'students.department',
+                'students.classFee',
+                'students.discount',
+                'students.t_fee',
+                'students.fee_start_date',
+                'students.prev_class',
+                'students.passing_year',
+                'students.total_marks',
+                'students.obtn_marks',
+                'students.school_board',
+                'students.address',
+                'class.className',
+                'session.session',
+                'section.section',
+                'parent_user.name AS parent_name'
+            )
+            ->where('students.fk_class_id', $class_id)
+            ->get();
+
+        // Fee array logic agar required ho
+        $feeArray = [];
+        foreach ($students as $student) {
+            $ids = explode('#', $student->fee_type_id ?? '');
+            $values = explode('#', $student->fee_type_value ?? '');
+
+            $types = DB::table('fee_type')
+                ->whereIn('id', $ids)
+                ->pluck('fee_type','id');
+
+            $singleStudentFees = [];
+            foreach($ids as $i => $id){
+                $typeName = $types[$id] ?? null;
+                if($typeName){
+                    $singleStudentFees[$typeName] = $values[$i] ?? 0;
+                }
+            }
+
+            $feeArray[] = $singleStudentFees;
+        }
+
+        return view('Students.studentsListByClass', [
+            'students' => $students,
+            'fees' => $feeArray
+        ]);
+    }
+
+
     public function SelectSession(){
-       return view('Students.listBySession');
+        $classes = myClass::all();
+        $sessions = session::all();
+
+        return view('Students.listBySession', compact('classes', 'sessions'));
+    }
+    public function ShowStudentsBySession(Request $request)
+    {
+        // Form me select names: class_id aur session_id
+        $class_id   = $request->class_id;
+        $session_id = $request->session_id;
+
+        $students = DB::table('students')
+            ->join('users AS student_user', 'students.fk_u_id', '=', 'student_user.id')
+            ->join('class', 'students.fk_class_id', '=', 'class.id')
+            ->join('session', 'students.fk_session_id', '=', 'session.id')
+            ->join('section', 'students.fk_sec_id', '=', 'section.id')
+            ->join('parents', 'students.fk_parent_id', '=', 'parents.id')
+            ->join('users AS parent_user', 'parents.fk_u_id', '=', 'parent_user.id')
+            ->select(
+                'student_user.name AS student_name',
+                'student_user.email',
+                'student_user.image AS student_image',
+
+                'students.phone',
+                'students.phone2',
+                'students.religion',
+                'students.cnic',
+                'students.date_of_birth',
+                'students.gender',
+                'students.join_date',
+                'students.referance',
+                'students.department',
+                'students.classFee',
+                'students.discount',
+                'students.t_fee',
+                'students.fee_start_date',
+                'students.prev_class',
+                'students.passing_year',
+                'students.total_marks',
+                'students.obtn_marks',
+                'students.school_board',
+                'students.address',
+
+                // For fee array
+                'students.fee_type_id',
+                'students.fee_type_value',
+
+                'class.className',
+                'session.session',
+                'section.section',
+                'parent_user.name AS parent_name'
+            )
+            ->where('students.fk_session_id', $session_id)
+            ->when($class_id, function ($query) use ($class_id) {
+                $query->where('students.fk_class_id', $class_id);
+            })
+
+            ->get();
+
+        // ===== Fee Array logic =====
+        $feeArray = [];
+
+        foreach ($students as $student) {
+
+            $ids    = explode('#', $student->fee_type_id ?? '');
+            $values = explode('#', $student->fee_type_value ?? '');
+
+            $types = DB::table('fee_type')
+                ->whereIn('id', $ids)
+                ->pluck('fee_type', 'id');
+
+            $singleStudentFees = [];
+
+            foreach ($ids as $i => $id) {
+                if (isset($types[$id])) {
+                    $singleStudentFees[$types[$id]] = $values[$i] ?? 0;
+                }
+            }
+
+            $feeArray[] = $singleStudentFees;
+        }
+
+        // 👇 SAME VIEW reuse kar rahe hain jaise List by Class
+
+        return view('Students.studentsListBySession',[
+            'students' => $students,
+            'feeArray' => $feeArray
+        ]);
+    }
+    public function SelectSection(Request $request) {
+        $classes = myClass::all();
+
+        // Agar form submit ho gaya hai aur class select ki gayi hai
+        $sections = DB::table('section')
+            ->when($request->class_id, function($q) use ($request){
+                $q->where('fk_class_id', $request->class_id);
+            })
+            ->get();
+
+        return view('Students.listBySection', compact('classes','sections'));
+    }
+
+    public function ShowStudentsBySection(Request $request) {
+        $class_id   = $request->class_id;
+        $section_id = $request->section_id;
+
+        $students = DB::table('students')
+            ->join('users AS student_user', 'students.fk_u_id', '=', 'student_user.id')
+            ->join('class', 'students.fk_class_id', '=', 'class.id')
+            ->join('section', 'students.fk_sec_id', '=', 'section.id')
+            ->join('parents', 'students.fk_parent_id', '=', 'parents.id')
+            ->join('users AS parent_user', 'parents.fk_u_id', '=', 'parent_user.id')
+            ->select(
+                'student_user.name AS student_name',
+                'student_user.email',
+                'student_user.image AS student_image',
+                'students.*',
+                'class.className',
+                'section.section',
+                'parent_user.name AS parent_name'
+            )
+            ->where('students.fk_class_id', $class_id)
+            ->where('students.fk_sec_id', $section_id)
+            ->get();
+
+        // Fee array same as before
+        $feeArray = [];
+        foreach ($students as $student) {
+            $ids = explode('#', $student->fee_type_id ?? '');
+            $values = explode('#', $student->fee_type_value ?? '');
+
+            $types = DB::table('fee_type')
+                ->whereIn('id', $ids)
+                ->pluck('fee_type','id');
+
+            $singleStudentFees = [];
+            foreach($ids as $i => $id){
+                if(isset($types[$id])){
+                    $singleStudentFees[$types[$id]] = $values[$i] ?? 0;
+                }
+            }
+
+            $feeArray[] = $singleStudentFees;
+        }
+
+        return view('Students.studentListBySection', [ // same view reuse kar rahe
+            'students' => $students,
+            'feeArray' => $feeArray
+        ]);
+    }
+
+
+    public function getSections($class_id)
+    {
+        $sections = DB::table('section') // ✅ singular
+        ->where('fk_class_id', $class_id) // ✅ correct FK
+        ->get();
+
+        return response()->json($sections);
     }
 
 

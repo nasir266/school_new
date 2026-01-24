@@ -475,6 +475,9 @@
                                 <li class="nav-item ">
                                     <a href="{{ route('SelectSession') }}" class="nav-link"><i class="fas fa-angle-right"></i>List by Session</a>
                                 </li>
+                                <li class="nav-item ">
+                                    <a href="{{ route('SelectSection') }}" class="nav-link"><i class="fas fa-angle-right"></i>List by Section</a>
+                                </li>
 
                             </ul>
                         </li>
