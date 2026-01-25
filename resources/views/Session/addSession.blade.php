@@ -98,22 +98,20 @@
                         </div>
                         <form class="mg-b-20">
                             <div class="row gutters-8">
-                                <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Roll ..." class="form-control">
+                                <div class="col-6-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                                    <input id="session" type="text" placeholder="Search by Session ..." class="form-control">
                                 </div>
-                                <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Name ..." class="form-control">
+                                <div class="col-6-xxxl col-xl-4 col-lg-3 col-12 form-group">
+                                    <input id="department" type="text" placeholder="Search by Department ..." class="form-control">
                                 </div>
-                                <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Class ..." class="form-control">
-                                </div>
-                                <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
-                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
-                                </div>
+
+{{--                                <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">--}}
+{{--                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>--}}
+{{--                                </div>--}}
                             </div>
                         </form>
                         <div class="table-responsive">
-                            <table class="table display data-table text-nowrap">
+                            <table class="table display data-table text-nowrap" id="parentTable">
                                 <thead>
                                     <tr>
                                         <th>
@@ -165,6 +163,39 @@
 
         <!-- Footer Area End Here -->
     </div>
+
+    <script>
+        //  for search session
+        document.getElementById("session").addEventListener("keyup", function () {
+            let searchValue = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#parentTable tbody tr");
+
+            rows.forEach(row => {
+                let email = row.cells[1].textContent.toLowerCase(); // Email column
+
+                if (email.includes(searchValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+        // search by name
+        document.getElementById("department").addEventListener("keyup", function () {
+            let value = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#parentTable tbody tr");
+
+            rows.forEach(row => {
+                let name  = row.cells[2].textContent.toLowerCase(); // Name column
+
+                if (name.includes(value)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+    </script>
 
     <!-- Page Area End Here -->
 @endsection

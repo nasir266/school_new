@@ -29,7 +29,7 @@
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                                             aria-expanded="false">...</a>
-        
+
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item" href="#"><i
                                                     class="fas fa-times text-orange-red"></i>Close</a>
@@ -40,15 +40,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form method="post" action="{{ route('addsession') }}" class="new-added-form">
+                                <form method="post" action="{{ route('ApplicationForm.store') }}" class="new-added-form">
                                     @csrf
+
                                     <div class="row">
-                                        
-                                        <div class="col-xl-12 col-lg-12 col-12 form-group">
+
+                                        <div class="col-xl-6 col-lg-6 col-6 form-group">
                                             <label>Name</label>
                                             <input name="name" type="text" placeholder="Enter Your Name" class="form-control">
                                         </div>
-                                        <div class="col-xl-12 col-lg-12 col-12 form-group">
+                                        <div class="col-xl-6 col-lg-6 col-6 form-group">
                                             <label>Contact</label>
                                             <input name="contact" type="text" placeholder="Enter Your Contact" class="form-control">
                                         </div>
@@ -56,7 +57,16 @@
                                             <label>Address</label>
                                             <input name="address" type="text" placeholder="Enter Your Address" class="form-control">
                                         </div>
-                                        
+                                        <div class="col-xl-12 col-lg-12 col-12 form-group">
+                                            <label>Reference</label>
+                                            <input name="reference" type="text" placeholder="Enter Your reference" class="form-control">
+                                        </div>
+                                        <div class="col-xl-12 col-lg-12 col-12 form-group">
+                                            <label>Purpose</label>
+                                            <input name="purpose" type="text" placeholder="Enter Your purpose" class="form-control">
+                                        </div>
+
+
                                         <div class="col-12 form-group mg-t-8">
                                             <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Submit</button>
                                         </div>
@@ -66,7 +76,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
         </div>
 
         <!-- Footer Area Start Here -->

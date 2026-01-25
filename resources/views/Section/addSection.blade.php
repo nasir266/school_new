@@ -71,32 +71,7 @@
                         </div>
                     </div>
                 </div>
-        <!-- Success Modal -->
-        <div class="modal fade" id="success-modal" tabindex="-1" role="dialog"
-             aria-hidden="true">
-            <div class="modal-dialog success-modal-content" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"
-                                aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="success-message">
-                            <div class="item-icon">
-                                <i class="fas fa-check"></i>
-                            </div>
-                            <h3 class="item-title">Successfully Message Sent</h3>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="footer-btn bg-linkedin"
-                                data-dismiss="modal">Okay</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="card height-auto">
                     <div class="card-body">
                         <div class="heading-layout1">
@@ -119,26 +94,20 @@
                         </div>
                         <form class="mg-b-20">
                             <div class="row gutters-8">
-                                <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Roll ..." class="form-control">
+                                <div class="col-6-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                                    <input id="section" type="text" placeholder="Search by Section Name ..." class="form-control">
                                 </div>
-                                <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Name ..." class="form-control">
+                                <div class="col-6-xxxl col-xl-4 col-lg-3 col-12 form-group">
+                                    <input id="class" type="text" placeholder="Search by Class Name ..." class="form-control">
                                 </div>
-                                <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Class ..." class="form-control">
-                                </div>
-                                <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
-                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
-                                </div>
-                                <button type="button" class="modal-trigger" data-toggle="modal"
-                                        data-target="#success-modal">
-                                    Show Success
-                                </button>
+
+                                {{--                                <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">--}}
+                                {{--                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>--}}
+                                {{--                                </div>--}}
                             </div>
                         </form>
                         <div class="table-responsive">
-                            <table class="table display data-table text-nowrap">
+                            <table class="table display data-table text-nowrap" id="parentTable">
                                 <thead>
                                     <tr>
                                         <th>
@@ -192,5 +161,39 @@
         <!-- Footer Area End Here -->
     </div>
 
+
+
+    <script>
+        //  for search section
+        document.getElementById("section").addEventListener("keyup", function () {
+            let searchValue = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#parentTable tbody tr");
+
+            rows.forEach(row => {
+                let email = row.cells[1].textContent.toLowerCase(); // Email column
+
+                if (email.includes(searchValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+        // search by name
+        document.getElementById("class").addEventListener("keyup", function () {
+            let value = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#parentTable tbody tr");
+
+            rows.forEach(row => {
+                let name  = row.cells[2].textContent.toLowerCase(); // Name column
+
+                if (name.includes(value)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+    </script>
     <!-- Page Area End Here -->
 @endsection

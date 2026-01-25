@@ -58,13 +58,13 @@
                                                 <option value="">Select Type</option>
                                                 <option value="monthly">Monthly</option>
                                                 <option value="yearly">Yearly</option>
-                                                <option value="anually">Anually</option>
+                                                <option value="installment">installment</option>
                                             </select>
                                         </div>
 
                                         <div class="col-xl-6 col-lg-6 col-12 form-group">
                                             <label>Select Department</label>
-                                            <select name="department" class="select2">
+                                            <select id="department1" name="department" class="select2">
                                                 <option value="">Select Department</option>
                                                 <option value="Primary">Primary</option>
                                                 <option value="Middle">Middle</option>
@@ -72,6 +72,22 @@
                                                 <option value="Intermediate">Intermediate</option>
                                                 <option value="Higher Education">Higher Education</option>
                                                 <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                        <div id="bachelor" class="col-xl-4 col-lg-6 col-12 form-group" style="display: none">
+                                            <label>Sub Departments</label>
+                                            <select id="bachelor1" name="sub_dep" class="select2">
+                                                <option value="">Select sub department</option>
+                                                <option value="Bachelor of Science">Bachelor of Science</option>
+                                                <option value="Associate Degree Program">Associate Degree Program</option>
+                                            </select>
+                                        </div>
+                                        <div id="semester" class="col-xl-4 col-lg-6 col-12 form-group" style="display: none">
+                                            <label>Select Semester</label>
+                                            <select name="semester" class="select2">
+                                                <option value="">Select Semester</option>
+                                                <option value="1st Semester">1st Semester</option>
+                                                <option value="5th Semester">5th Semester</option>
                                             </select>
                                         </div>
 
@@ -110,22 +126,20 @@
                         </div>
                         <form class="mg-b-20">
                             <div class="row gutters-8">
-                                <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Roll ..." class="form-control">
+                                <div class="col-6-xxxl col-xl-4 col-lg-3 col-12 form-group">
+                                    <input id="class" type="text" placeholder="Search by Class Name ..." class="form-control">
                                 </div>
-                                <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Name ..." class="form-control">
+                                <div class="col-6-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                                    <input id="department" type="text" placeholder="Search by Department Name ..." class="form-control">
                                 </div>
-                                <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Class ..." class="form-control">
-                                </div>
-                                <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
-                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
-                                </div>
+
+                                {{--                                <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">--}}
+                                {{--                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>--}}
+                                {{--                                </div>--}}
                             </div>
                         </form>
                         <div class="table-responsive">
-                            <table class="table display data-table text-nowrap">
+                            <table class="table display data-table text-nowrap" id="parentTable">
                                 <thead>
                                     <tr>
                                         <th>
@@ -137,6 +151,8 @@
                                         <th>Class Name</th>
                                         <th>Class Fee</th>
                                         <th>Department</th>
+                                        <th>Sub-Department</th>
+                                        <th>Semester</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -152,6 +168,8 @@
                                         <td>{{ $class->className }}</td>
                                         <td>{{ $class->fee }}</td>
                                         <td>{{ $class->department }}</td>
+                                        <td>{{ $class->sub_dep ?? '-'}}</td>
+                                        <td>{{ $class->semester ?? '-' }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"
@@ -181,5 +199,80 @@
         <!-- Footer Area End Here -->
     </div>
 
+
+    <script>
+        //  for search class
+        document.getElementById("class").addEventListener("keyup", function () {
+            let searchValue = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#parentTable tbody tr");
+
+            rows.forEach(row => {
+                let email = row.cells[1].textContent.toLowerCase(); // Email column
+
+                if (email.includes(searchValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+        // search by department
+        document.getElementById("department").addEventListener("keyup", function () {
+            let value = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#parentTable tbody tr");
+
+            rows.forEach(row => {
+                let name  = row.cells[3].textContent.toLowerCase(); // Name column
+
+                if (name.includes(value)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const department = document.getElementById("department1");
+            const bachelor = document.getElementById("bachelor");
+
+            // Hide initially
+            bachelor.style.display = "none";
+
+            // Listen for change (works with Select2)
+            $('#department1').on('change', function () {
+                if ($(this).val() === "Higher Education") {
+                    $('#bachelor').show();
+                } else {
+                    $('#bachelor').hide();
+                    $('#bachelor1').val(null).trigger('change');
+                    $('#semester').hide();
+                    $('#semester1').val(null).trigger('change');
+                }
+            });
+
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const department = document.getElementById("bachelor1");
+            const bachelor = document.getElementById("semester");
+
+            // Hide initially
+            bachelor.style.display = "none";
+
+            // Listen for change (works with Select2)
+            $('#bachelor1').on('change', function () {
+                if ($(this).val() === "Bachelor of Science") {
+                    $('#semester').show();
+                } else {
+                    $('#semester').hide();
+                    $('#semester1').val(null).trigger('change');
+                }
+            });
+
+        });
+    </script>
     <!-- Page Area End Here -->
 @endsection

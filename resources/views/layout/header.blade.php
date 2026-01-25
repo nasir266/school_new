@@ -408,7 +408,29 @@
                                 <li class="nav-item">
                                     <a href="{{ route('ApplicationForm') }}" class="nav-link"><i class="fas fa-angle-right"></i>Application Form</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('list_ApplicationForm') }}" class="nav-link"><i class="fas fa-angle-right"></i>list_Application Form</a>
+                                </li>
 
+                            </ul>
+
+                        </li>
+
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i class="fas fa-id-badge"></i><span>Cards</span></a>
+                            <ul class="nav sub-group-menu">
+                                <li class="nav-item ">
+                                    <a href="{{ route('StudentCardByClass') }}" class="nav-link"><i class="fas fa-angle-right"></i>Student Card By Class</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a href="{{ route('SingleStudentCard') }}" class="nav-link"><i class="fas fa-angle-right"></i>Single Student Card</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a href="{{ route('AllStaffCard') }}" class="nav-link"><i class="fas fa-angle-right"></i>Staff Card Overall</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a href="{{ route('SingleStaffCard') }}" class="nav-link"><i class="fas fa-angle-right"></i>Single Staff Card</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item sidebar-nav-item">
@@ -432,8 +454,16 @@
                         <li class="nav-item ">
                             <a href="{{ route('staff') }}" class="nav-link"><i class="fas fa-user-tie"></i> <span>Staff</span></a>
                         </li>
-                        <li class="nav-item ">
-                            <a href="{{ route('Subject') }}" class="nav-link"><i class="flaticon-open-book"></i><span>Subject</span></a>
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i class="flaticon-open-book"></i><span>Subject</span></a>
+                            <ul class="nav sub-group-menu">
+                                <li class="nav-item ">
+                                    <a href="{{ route('Subject') }}" class="nav-link"><i class="fas fa-angle-right"></i>Add Subject</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a href="{{ route('allSubject') }}" class="nav-link"><i class="fas fa-angle-right"></i>Subject Lists</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item ">
                             <a href="{{ route('Incharge') }}" class="nav-link"><i class="fas fa-chalkboard-teacher"></i><span>Class Incharge</span></a>

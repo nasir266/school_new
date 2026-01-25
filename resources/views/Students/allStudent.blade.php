@@ -41,22 +41,22 @@
                         </div>
                         <form class="mg-b-20">
                             <div class="row gutters-8">
-                                <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Roll ..." class="form-control">
+                                <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                                    <input id="searchName" type="text" placeholder="Search by Name ..." class="form-control">
                                 </div>
                                 <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Name ..." class="form-control">
+                                    <input id="searchEmail" type="text" placeholder="Search by Email ..." class="form-control">
                                 </div>
                                 <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Class ..." class="form-control">
+                                    <input id="class" type="text" placeholder="Search by Class ..." class="form-control">
                                 </div>
-                                <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
-                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
-                                </div>
+{{--                                <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">--}}
+{{--                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>--}}
+{{--                                </div>--}}
                             </div>
                         </form>
                         <div class="table-responsive">
-                            <table class="table display data-table text-nowrap">
+                            <table class="table display data-table text-nowrap" id="parentTable">
                                 <thead>
                                     <tr>
                                         <th>
@@ -68,6 +68,7 @@
                                         <th>Photos</th>
                                         <th>Students Name</th>
                                         <th>Parents Name</th>
+                                        <th>Email</th>
                                         <th>Religion</th>
                                         <th>Mobile No</th>
                                         <th>Mobile No 2</th>
@@ -76,7 +77,6 @@
                                         <th>Gender</th>
                                         <th>Joining Date</th>
                                         <th>Referance</th>
-                                        <th>Email</th>
                                         <th>Department</th>
                                         <th>Session</th>
                                         <th>Class</th>
@@ -121,6 +121,7 @@
                                         </td>
                                         <td>{{ $stu->name }}</td>
                                         <td>{{ $stu->parent_name }}</td>
+                                        <td>{{ $stu->email }}</td>
                                         <td>{{ $stu->religion }}</td>
                                         <td>{{ $stu->phone }}</td>
                                         <td>{{ $stu->phone2 }}</td>
@@ -129,7 +130,6 @@
                                         <td>{{ $stu->gender }}</td>
                                         <td>{{ $stu->join_date }}</td>
                                         <td>{{ $stu->referance }}</td>
-                                        <td>{{ $stu->email }}</td>
                                         <td>{{ $stu->department }}</td>
                                         <td>{{ $stu->session }}</td>
                                         <td>{{ $stu->className }}</td>
@@ -388,6 +388,53 @@
     //         let text = $('#parentsDropdown option:selected').text();
     //         $('#parent').val(text);   // save TEXT in hidden field
     //     });
+
+        //  for search name
+        document.getElementById("searchName").addEventListener("keyup", function () {
+
+            let searchValue = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#parentTable tbody tr");
+
+            rows.forEach(row => {
+                let email = row.cells[2].textContent.toLowerCase(); // Email column
+
+                if (email.includes(searchValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+        // search by Email
+        document.getElementById("searchEmail").addEventListener("keyup", function () {
+            let value = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#parentTable tbody tr");
+
+            rows.forEach(row => {
+                let name  = row.cells[3].textContent.toLowerCase(); // Name column
+
+                if (name.includes(value)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+        // search by class
+        document.getElementById("class").addEventListener("keyup", function () {
+            let value = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#parentTable tbody tr");
+
+            rows.forEach(row => {
+                let name  = row.cells[15].textContent.toLowerCase(); // Name column
+
+                if (name.includes(value)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
     </script>
 
     <!-- Page Area End Here -->

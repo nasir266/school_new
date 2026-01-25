@@ -26,16 +26,39 @@ class AjaxController extends Controller
 
         return response()->json($sessions);
     }
-// depart to classes
-    public function getClasses($deptId)
+
+
+    public function getClasses(Request $request)
     {
+        $department = $request->department;
+//        $sub_dep    = $request->sub_dep;
+//        $semester   = $request->semester;
+
         $classes = DB::table('class')
-            ->where('department', $deptId)
+            ->where('department', $department)
             ->orderBy('id', 'ASC')
             ->get();
 
 
         return response()->json($classes);
+    }
+    public function getClass(Request $request)
+    {
+        $department = $request->department;
+        $sub_dep    = $request->sub_dep;
+        $semester   = $request->semester;
+
+        $query = DB::table('class')
+            ->where('department', $department)
+            ->where('sub_dep', $sub_dep);
+
+        if ($semester) {    // only add this condition if semester is not empty
+            $query->where('semester', $semester);
+        }
+
+        $class = $query->orderBy('id', 'ASC')->get();
+
+        return response()->json($class);
     }
 // classes to sections
     public function getSections($classId)

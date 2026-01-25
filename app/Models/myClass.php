@@ -15,6 +15,8 @@ class myClass extends Model
         'fee',
         'fee_type',
         'department',
+        'sub_dep',
+        'semester',
         'addedBy',
         'fk_scl_id',
         'fk_campus_id',

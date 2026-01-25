@@ -35,7 +35,9 @@ Route::get('/get-class-fee/{id}', [AjaxController::class, 'getClassFee']);
 // depart to session
 Route::get('/get-sessions/{deptId}', [AjaxController::class, 'getSessions']);
 // depart to classes
-Route::get('/get-classes/{deptId}', [AjaxController::class, 'getClasses']);
+Route::get('/get-classes', [AjaxController::class, 'getClasses']);
+// depart to class
+Route::get('/get-class', [AjaxController::class, 'getClass']);
 // Classes  to sections
 Route::get('/get-sections/{classId}', [AjaxController::class, 'getSections']);
 
@@ -121,9 +123,20 @@ Route::post('/addSection',[SectionController::class , 'addSection'] )->name('add
 // delete
 Route::get('deleteSection/{id}',[SectionController::class , 'delete']);
 
-// ============== Reseption
-Route::get('/ApplicationForm',[ReseptionController::class , 'ApplicationForm'] )->name('ApplicationForm');
+// Show form
+Route::get('/ApplicationForm', [ReseptionController::class, 'ApplicationForm'])
+    ->name('ApplicationForm');
 
+// Store form data
+Route::post('/ApplicationForm', [ReseptionController::class, 'store'])
+    ->name('ApplicationForm.store');
+Route::get('/list_ApplicationForm', [ReseptionController::class, 'list_ApplicationForm'])
+    ->name('list_ApplicationForm');
+Route::get('/application-form/{id}/edit', [ReseptionController::class, 'edit'])
+    ->name('ApplicationForm.edit');
+
+Route::post('/application-form/{id}/update', [ReseptionController::class, 'update'])
+    ->name('ApplicationForm.update');
 
 //========= Cards
 // ==== Student Card By Class
@@ -143,6 +156,10 @@ Route::post('/addStaff',[StaffController::class , 'addStaff'] )->name('addStaff'
 
 //========= Add Subject Route
 Route::get('/Subject',[SubjectController::class , 'Subject'] )->name('Subject');
+Route::post('/addSubject',[SubjectController::class , 'addSubject'] )->name('addSubject');
+
+Route::get('/allSubject',[SubjectController::class , 'allSubject'] )->name('allSubject');
+
 
 //========= Add Incharge Route
 Route::get('/Incharge',[InchargeController::class , 'Incharge'] )->name('Incharge');

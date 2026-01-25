@@ -30,6 +30,8 @@ class ClassController extends Controller
         $fk_campus_id = $campus->id;
         $fk_scl_id = $campus->fk_scl_id;
 
+
+
         myClass::create([
             'fk_campus_id' => $fk_campus_id,
             'fk_scl_id' => $fk_scl_id,
@@ -38,6 +40,8 @@ class ClassController extends Controller
             'fee'=> $request->fee,
             'fee_type'=> $request->fee_type?? null,
             'department'=> $request->department,
+            'sub_dep'=> $request->sub_dep ?? null,
+            'semester'=> $request->semester ?? null,
             'status'=> 0,
         ]);
 
