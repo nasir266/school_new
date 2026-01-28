@@ -1,4 +1,3 @@
-
 @extends('layout.main')
 
 @section('title', 'Dashboad-Students')
@@ -8,7 +7,8 @@
     <!-- Sidebar Area End Here -->
     <div class="dashboard-content-one">
         <!-- Breadcubs Area Start Here -->
-        <div class="breadcrumbs-area d-flex justify-content-between" style="margin: 0 !important; padding: 0 !important;">
+        <div class="breadcrumbs-area d-flex justify-content-between"
+             style="margin: 0 !important; padding: 0 !important;">
             <h3>Students List</h3>
             <ul>
                 <li>
@@ -20,156 +20,161 @@
         <!-- Breadcubs Area End Here -->
 
         <div class="card height-auto">
-                    <div class="card-body">
-                        <div class="heading-layout1">
-                            <div class="item-title">
-                                <h3>All Students List</h3>
-                            </div>
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                    aria-expanded="false">...</a>
+            <div class="card-body">
+                <div class="heading-layout1">
+                    <div class="item-title">
+                        <h3>All Students List</h3>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                           aria-expanded="false">...</a>
 
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#"><i
-                                            class="fas fa-times text-orange-red"></i>Close</a>
-                                    <a class="dropdown-item" href="#"><i
-                                            class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                    <a class="dropdown-item" href="#"><i
-                                            class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                                </div>
-                            </div>
-                        </div>
-                        <form class="mg-b-20">
-                            <div class="row gutters-8">
-                                <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input id="searchName" type="text" placeholder="Search by Name ..." class="form-control">
-                                </div>
-                                <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                    <input id="searchEmail" type="text" placeholder="Search by Email ..." class="form-control">
-                                </div>
-                                <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input id="class" type="text" placeholder="Search by Class ..." class="form-control">
-                                </div>
-{{--                                <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">--}}
-{{--                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>--}}
-{{--                                </div>--}}
-                            </div>
-                        </form>
-                        <div class="table-responsive">
-                            <table class="table display data-table text-nowrap" id="parentTable">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input checkAll">
-                                                <label class="form-check-label">#</label>
-                                            </div>
-                                        </th>
-                                        <th>Photos</th>
-                                        <th>Students Name</th>
-                                        <th>Parents Name</th>
-                                        <th>Email</th>
-                                        <th>Religion</th>
-                                        <th>Mobile No</th>
-                                        <th>Mobile No 2</th>
-                                        <th>CNIC</th>
-                                        <th>D-O-B</th>
-                                        <th>Gender</th>
-                                        <th>Joining Date</th>
-                                        <th>Referance</th>
-                                        <th>Department</th>
-                                        <th>Session</th>
-                                        <th>Class</th>
-                                        <th>Section</th>
-                                        <th>Class Fee</th>
-                                        @if(isset($fees) && count($fees) > 0)
-                                            @php
-                                                $allFeeNames = collect($fees)
-                                                    ->flatMap(function($row){ return array_keys($row); })
-                                                    ->unique()
-                                                    ->values();
-                                            @endphp
-                                            @foreach($allFeeNames as $name)
-                                                <th>{{ $name }}</th>
-                                            @endforeach
-                                        @endif
-                                        <th>Discount</th>
-                                        <th>Total Fee</th>
-                                        <th>Fee Start Date</th>
-                                        <th>Previous Class Name</th>
-                                        <th>Passing Year</th>
-                                        <th>Total Marks</th>
-                                        <th>Obtain Marks</th>
-                                        <th>School/College Board</th>
-                                        <th>Address</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($students as $index => $stu)
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">{{ $loop->iteration }}</label>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden;">
-                                                <img  src="{{ asset('/storage/'.$stu->image) }}" style="width: 100%;height: 100%; object-fit: cover;" alt="parent">
-                                            </div>
-                                        </td>
-                                        <td>{{ $stu->name }}</td>
-                                        <td>{{ $stu->parent_name }}</td>
-                                        <td>{{ $stu->email }}</td>
-                                        <td>{{ $stu->religion }}</td>
-                                        <td>{{ $stu->phone }}</td>
-                                        <td>{{ $stu->phone2 }}</td>
-                                        <td>{{ $stu->cnic }}</td>
-                                        <td>{{ $stu->date_of_birth }}</td>
-                                        <td>{{ $stu->gender }}</td>
-                                        <td>{{ $stu->join_date }}</td>
-                                        <td>{{ $stu->referance }}</td>
-                                        <td>{{ $stu->department }}</td>
-                                        <td>{{ $stu->session }}</td>
-                                        <td>{{ $stu->className }}</td>
-                                        <td>{{ $stu->section }}</td>
-                                        <td>{{ $stu->classFee }}</td>
-                                        @if(isset($fees))
-                                            @foreach($allFeeNames as $name)
-                                                <td>{{ $fees[$index][$name] ?? 0 }}</td>
-                                            @endforeach
-                                        @endif
-                                        <td>{{ $stu->discount }}</td>
-                                        <td>{{ $stu->t_fee }}</td>
-                                        <td>{{ $stu->fee_start_date }}</td>
-                                        <td>{{ $stu->prev_class }}</td>
-                                        <td>{{ $stu->passing_year }}</td>
-                                        <td>{{ $stu->total_marks }}</td>
-                                        <td>{{ $stu->obtn_marks }}</td>
-                                        <td>{{ $stu->school_board }}</td>
-                                        <td>{{ $stu->address }}</td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                                   aria-expanded="false">
-                                                    <span class="flaticon-more-button-of-three-dots"></span>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#"><i
-                                                            class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                                    <a class="dropdown-item" href="#"><i
-                                                            class="fas fa-times text-orange-red"></i>Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-                                </tbody>
-                            </table>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#"><i
+                                    class="fas fa-times text-orange-red"></i>Close</a>
+                            <a class="dropdown-item" href="#"><i
+                                    class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
+                            <a class="dropdown-item" href="#"><i
+                                    class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
                         </div>
                     </div>
+                </div>
+                <form class="mg-b-20">
+                    <div class="row gutters-8">
+                        <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                            <input id="searchName" type="text" placeholder="Search by Name ..." class="form-control">
+                        </div>
+                        <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
+                            <input id="searchEmail" type="text" placeholder="Search by Email ..." class="form-control">
+                        </div>
+                        <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                            <input id="class" type="text" placeholder="Search by Class ..." class="form-control">
+                        </div>
+                        {{--                                <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">--}}
+                        {{--                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>--}}
+                        {{--                                </div>--}}
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table display data-table text-nowrap" id="parentTable">
+                        <thead>
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input checkAll">
+                                    <label class="form-check-label">#</label>
+                                </div>
+                            </th>
+                            <th>Photos</th>
+                            <th>Students Name</th>
+                            <th>Parents Name</th>
+                            <th>Email</th>
+                            <th>Religion</th>
+                            <th>Mobile No</th>
+                            <th>Mobile No 2</th>
+                            <th>CNIC</th>
+                            <th>D-O-B</th>
+                            <th>Gender</th>
+                            <th>Joining Date</th>
+                            <th>Referance</th>
+                            <th>Department</th>
+                            <th>Sub Department</th>
+                            <th>Semester</th>
+                            <th>Session</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                            <th>Class Fee</th>
+                            @if(isset($fees) && count($fees) > 0)
+                                @php
+                                    $allFeeNames = collect($fees)
+                                        ->flatMap(function($row){ return array_keys($row); })
+                                        ->unique()
+                                        ->values();
+                                @endphp
+                                @foreach($allFeeNames as $name)
+                                    <th>{{ $name }}</th>
+                                @endforeach
+                            @endif
+                            <th>Discount</th>
+                            <th>Total Fee</th>
+                            <th>Fee Start Date</th>
+                            <th>Previous Class Name</th>
+                            <th>Passing Year</th>
+                            <th>Total Marks</th>
+                            <th>Obtain Marks</th>
+                            <th>School/College Board</th>
+                            <th>Address</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($students as $index => $stu)
+                            <tr>
+                                <td>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input">
+                                        <label class="form-check-label">{{ $loop->iteration }}</label>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden;">
+                                        <img src="{{ asset('images/students/'.$stu->image) }}"
+                                             style="width: 100%;height: 100%; object-fit: cover;" alt="parent">
+                                    </div>
+                                </td>
+                                <td>{{ $stu->name }}</td>
+                                <td>{{ $stu->parent_name }}</td>
+                                <td>{{ $stu->email }}</td>
+                                <td>{{ $stu->religion }}</td>
+                                <td>{{ $stu->phone }}</td>
+                                <td>{{ $stu->phone2 }}</td>
+                                <td>{{ $stu->cnic }}</td>
+                                <td>{{ $stu->date_of_birth }}</td>
+                                <td>{{ $stu->gender }}</td>
+                                <td>{{ $stu->join_date }}</td>
+                                <td>{{ $stu->referance }}</td>
+                                <td>{{ $stu->department }}</td>
+                                <td>{{ $stu->sub_dep ?? '-' }}</td>
+                                <td>{{ $stu->semester ?? '-' }}</td>
+                                <td>{{ $stu->session }}</td>
+                                <td>{{ $stu->className }}</td>
+                                <td>{{ $stu->section }}</td>
+                                <td>{{ $stu->classFee }}</td>
+                                @if(isset($fees))
+                                    @foreach($allFeeNames as $name)
+                                        <td>{{ $fees[$index][$name] ?? 0 }}</td>
+                                    @endforeach
+                                @endif
+                                <td>{{ $stu->discount }}</td>
+                                <td>{{ $stu->t_fee }}</td>
+                                <td>{{ $stu->fee_start_date }}</td>
+                                <td>{{ $stu->prev_class }}</td>
+                                <td>{{ $stu->passing_year }}</td>
+                                <td>{{ $stu->total_marks }}</td>
+                                <td>{{ $stu->obtn_marks }}</td>
+                                <td>{{ $stu->school_board }}</td>
+                                <td>{{ $stu->address }}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                           aria-expanded="false">
+                                            <span class="flaticon-more-button-of-three-dots"></span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#"><i
+                                                    class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
+                                            <a class="dropdown-item" href="#"><i
+                                                    class="fas fa-times text-orange-red"></i>Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <!-- Footer Area Start Here -->
         @include('layout.footer')
@@ -180,6 +185,52 @@
 
     <script>
         $(document).ready(function () {
+            //  for search name
+            document.getElementById("searchName").addEventListener("keyup", function () {
+
+                let searchValue = this.value.toLowerCase();
+                let rows = document.querySelectorAll("#parentTable tbody tr");
+
+                rows.forEach(row => {
+                    let email = row.cells[2].textContent.toLowerCase(); // Email column
+
+                    if (email.includes(searchValue)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            });
+            // search by Email
+            document.getElementById("searchEmail").addEventListener("keyup", function () {
+                let value = this.value.toLowerCase();
+                let rows = document.querySelectorAll("#parentTable tbody tr");
+
+                rows.forEach(row => {
+                    let name = row.cells[3].textContent.toLowerCase(); // Name column
+
+                    if (name.includes(value)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            });
+            // search by class
+            document.getElementById("class").addEventListener("keyup", function () {
+                let value = this.value.toLowerCase();
+                let rows = document.querySelectorAll("#parentTable tbody tr");
+
+                rows.forEach(row => {
+                    let name = row.cells[15].textContent.toLowerCase(); // Name column
+
+                    if (name.includes(value)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            });
             // FOR CLASS TO FEE
             $('#class_id').on('change', function () {
 
@@ -199,116 +250,117 @@
             });
             // FOR DEPARTMENT TO SESSION
 
-                $('#department_id').on('change', function() {
+            $('#department_id').on('change', function () {
 
                 var deptId = $(this).val();
 
-                if(deptId) {
+                if (deptId) {
 
-                $.ajax({
-                url: "/get-sessions/" + deptId,
-                type: "GET",
-                success: function(data) {
+                    $.ajax({
+                        url: "/get-sessions/" + deptId,
+                        type: "GET",
+                        success: function (data) {
 
-                $('#session_id').empty();
-                $('#session_id').append('<option value="">Select Session</option>');
+                            $('#session_id').empty();
+                            $('#session_id').append('<option value="">Select Session</option>');
 
-                var firstSessionId = null;
+                            var firstSessionId = null;
 
-                $.each(data, function(index, session) {
+                            $.each(data, function (index, session) {
 
-                if(index === 0) {
-                firstSessionId = session.id;   // latest session (first row)
-            }
+                                if (index === 0) {
+                                    firstSessionId = session.id;   // latest session (first row)
+                                }
 
-                $('#session_id').append(
-                '<option value="'+ session.id +'">'+ session.session +'</option>'
-                );
+                                $('#session_id').append(
+                                    '<option value="' + session.id + '">' + session.session + '</option>'
+                                );
+                            });
+
+                            // Select the latest session by default
+                            if (firstSessionId) {
+                                $('#session_id').val(firstSessionId).change();
+                            }
+                        }
+                    });
+
+                } else {
+                    $('#session_id').empty();
+                    $('#session_id').append('<option value="">Select Session</option>');
+                }
+
             });
+            // FOR DEPARTMENT TO CLASSES
 
-                // Select the latest session by default
-                if(firstSessionId) {
-                $('#session_id').val(firstSessionId).change();
-            }
-            }
+            $('#department_id').on('change', function () {
+
+                var deptId = $(this).val();
+
+                if (deptId) {
+
+                    // Load classes based on department
+                    $.ajax({
+                        url: "/get-classes/" + deptId,
+                        type: "GET",
+                        success: function (data) {
+
+                            $('#class_id').empty();
+                            $('#class_id').append('<option value="">Select Class</option>');
+
+                            $.each(data, function (key, cls) {
+                                $('#class_id').append(
+                                    '<option value="' + cls.id + '">' + cls.className + '</option>'
+                                );
+                            });
+                        }
+                    });
+
+                } else {
+
+                    $('#class_id').empty();
+                    $('#class_id').append('<option value="">Select Class</option>');
+                }
+
             });
+            //FOR CLASSES TO SECTIONS
 
-            } else {
-                $('#session_id').empty();
-                $('#session_id').append('<option value="">Select Session</option>');
-            }
-
-            });
-    // FOR DEPARTMENT TO CLASSES
-
-        $('#department_id').on('change', function() {
-
-            var deptId = $(this).val();
-
-            if(deptId) {
-
-                // Load classes based on department
-                $.ajax({
-                    url: "/get-classes/" + deptId,
-                    type: "GET",
-                    success: function(data) {
-
-                        $('#class_id').empty();
-                        $('#class_id').append('<option value="">Select Class</option>');
-
-                        $.each(data, function(key, cls) {
-                            $('#class_id').append(
-                                '<option value="'+ cls.id +'">'+ cls.className +'</option>'
-                            );
-                        });
-                    }
-                });
-
-            } else {
-
-                $('#class_id').empty();
-                $('#class_id').append('<option value="">Select Class</option>');
-            }
-
-        });
-    //FOR CLASSES TO SECTIONS
-
-                $('#class_id').on('change', function () {
+            $('#class_id').on('change', function () {
 
                 var classId = $(this).val();
 
-                if(classId) {
+                if (classId) {
 
-                $.ajax({
-                url: "/get-sections/" + classId,
-                type: "GET",
-                success: function(data) {
+                    $.ajax({
+                        url: "/get-sections/" + classId,
+                        type: "GET",
+                        success: function (data) {
 
-                $('#section_id').empty();
-                $('#section_id').append('<option value="">Select Section</option>');
+                            $('#section_id').empty();
+                            $('#section_id').append('<option value="">Select Section</option>');
 
-                $.each(data, function(key, sec) {
-                $('#section_id').append(
-                '<option value="'+ sec.id +'">'+ sec.section +'</option>'
-                );
+                            $.each(data, function (key, sec) {
+                                $('#section_id').append(
+                                    '<option value="' + sec.id + '">' + sec.section + '</option>'
+                                );
+                            });
+                        }
+                    });
+
+                } else {
+                    $('#section_id').empty();
+                    $('#section_id').append('<option value="">Select Section</option>');
+                }
             });
-            }
-            });
 
-            } else {
-                $('#section_id').empty();
-                $('#section_id').append('<option value="">Select Section</option>');
-            }
-            });
-    // CALCULATE TOTAL FEE
-        function calculateTotal() {
+            // CALCULATE TOTAL FEE
+            function calculateTotal() {
 
                 // Get class fee (first field)
                 var classFee = parseFloat($('#class_fee').val()) || 0;
 
                 // Sum all infinity feeType[] fields
                 var feeSum = 0;
-                $('input[name="feeType[]"]').each(function() {
+                $('input[name="feeType[]"]').each(function () {
                     feeSum += parseFloat($(this).val()) || 0;
                 });
 
@@ -323,19 +375,15 @@
             }
 
             // Trigger calculation on change/input of any field
-            $(document).on('input', '#class_fee, input[name="feeType[]"], #discount', function() {
+            $(document).on('input', '#class_fee, input[name="feeType[]"], #discount', function () {
                 calculateTotal();
             });
 
 
+        });
 
 
-
-    });
-
-
-
-    // for generate email
+        // for generate email
         document.getElementById('name').addEventListener('input', function () {
             let result = this.value.replace(/[^a-zA-Z0-9 ]/g, '');
             this.value = result;
@@ -383,58 +431,14 @@
                 icon.classList.add("fa-eye");
             }
         }
-    // //     get parents name
-    //     $('#parentsDropdown').on('change', function () {
-    //         let text = $('#parentsDropdown option:selected').text();
-    //         $('#parent').val(text);   // save TEXT in hidden field
-    //     });
 
-        //  for search name
-        document.getElementById("searchName").addEventListener("keyup", function () {
+        // //     get parents name
+        //     $('#parentsDropdown').on('change', function () {
+        //         let text = $('#parentsDropdown option:selected').text();
+        //         $('#parent').val(text);   // save TEXT in hidden field
+        //     });
 
-            let searchValue = this.value.toLowerCase();
-            let rows = document.querySelectorAll("#parentTable tbody tr");
 
-            rows.forEach(row => {
-                let email = row.cells[2].textContent.toLowerCase(); // Email column
-
-                if (email.includes(searchValue)) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-            });
-        });
-        // search by Email
-        document.getElementById("searchEmail").addEventListener("keyup", function () {
-            let value = this.value.toLowerCase();
-            let rows = document.querySelectorAll("#parentTable tbody tr");
-
-            rows.forEach(row => {
-                let name  = row.cells[3].textContent.toLowerCase(); // Name column
-
-                if (name.includes(value)) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-            });
-        });
-        // search by class
-        document.getElementById("class").addEventListener("keyup", function () {
-            let value = this.value.toLowerCase();
-            let rows = document.querySelectorAll("#parentTable tbody tr");
-
-            rows.forEach(row => {
-                let name  = row.cells[15].textContent.toLowerCase(); // Name column
-
-                if (name.includes(value)) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-            });
-        });
     </script>
 
     <!-- Page Area End Here -->

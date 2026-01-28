@@ -30,14 +30,11 @@ class StaffController extends Controller
             'password' => 'required|confirmed',
         ]);
 
-        // $file = $request->file('image')->store('images/parents', 'public');
-        // If user uploaded image
         if ($request->hasFile('image')) {
-            $file = $request->file('image')->store('images/staff', 'public');
-            $data['image'] = $file;
-        } else {
-            // Use default image
-            $data['image'] = 'images/staff/zGJdPsLgY6EhXHj6bxPb8EKXQcOUonzYVihGy5jj.png';
+            $file = $request->file('image');
+            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/staff'), $fileName);
+            $data['image'] = $fileName;
         }
         $data['status'] = 18;
         // $data['image'] = $file ?? null;

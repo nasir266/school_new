@@ -200,7 +200,7 @@
                                         </td>
                                         <td class="text-center">
                                             <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden;">
-                                                <img  src="{{ asset('storage/'.$teacher->image ) }}" style="width: 100%;height: 100%; object-fit: cover;" alt="teacher">
+                                                <img  src="{{ asset('images/teachers/'.$teacher->image) }}" style="width: 100%;height: 100%; object-fit: cover;" alt="teacher">
                                             </div>
                                         </td>
                                         <td>{{ $teacher->name }}</td>

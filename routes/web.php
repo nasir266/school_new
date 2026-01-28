@@ -168,6 +168,10 @@ Route::get('/Incharge',[InchargeController::class , 'Incharge'] )->name('Incharg
 Route::get('/Fee',[FeeController::class , 'Fee'] )->name('Fee');
 Route::post('/feeType',[FeeController::class , 'feeType'] )->name('feeType');
 
+Route::get('/otherFee',[FeeController::class , 'otherFee'] )->name('otherFee');
+Route::post('/addOtherFee',[FeeController::class , 'addOtherFee'] )->name('addOtherFee');
+
+
 //========= Add Parents Route
 Route::get('/Parents',[ParentsController::class , 'Parents'] )->name('Parents');
 Route::post('/addParents',[ParentsController::class , 'addParents'] )->name('addParents');
@@ -189,6 +193,7 @@ Route::get('/SelectSession',[StudentsController::class , 'SelectSession'] )->nam
 
 //========= Add Students Fee Route
 Route::get('/StudentsFee',[StudentsFeeController::class , 'StudentsFee'] )->name('StudentsFee');
+Route::post('/addStudentsFee',[StudentsFeeController::class , 'addStudentsFee'] )->name('addStudentsFee');
 // ==== Student fee List
 Route::get('/StudentsFeeList',[StudentsFeeController::class , 'StudentsFeeList'] )->name('StudentsFeeList');
 // ==== Pending Student fee List by class

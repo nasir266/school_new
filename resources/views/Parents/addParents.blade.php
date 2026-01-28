@@ -185,7 +185,7 @@
                                         </td>
                                         <td class="text-center">
                                             <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden;">
-                                                <img  src="{{ asset('/storage/'.$parent->image) }}" style="width: 100%;height: 100%; object-fit: cover;" alt="parent">
+                                                <img  src="{{ asset('images/parents/'.$parent->image) }}" style="width: 100%;height: 100%; object-fit: cover;" alt="parent">
                                             </div>
                                         </td>
                                         <td>{{ $parent->name }}</td>

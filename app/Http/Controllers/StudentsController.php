@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\DB;
 
 class StudentsController extends Controller
 {
-    public function allStudents(){
+    public function allStudents()
+    {
         $feeType = feeType::all();
         $session = session::all();
         $class = myClass::all();
@@ -69,10 +70,11 @@ class StudentsController extends Controller
         }
 
 
-       return view('Students.allStudent')->with(['parents' => $parents, 'feeType' => $feeType, 'session' => $session, 'class' => $class, 'students' => $students , 'fees'=>$feeArray]);
+        return view('Students.allStudent')->with(['parents' => $parents, 'feeType' => $feeType, 'session' => $session, 'class' => $class, 'students' => $students, 'fees' => $feeArray]);
     }
 
-    public function addStudents(Request $request){
+    public function addStudents(Request $request)
+    {
         $fields = $request->parent;   // This is an array
 //
 //        $joinedValues = implode('#', $request->feeType);
@@ -81,75 +83,75 @@ class StudentsController extends Controller
 //        dd($joinedValues, $joinedValuesid);
 //        dd($fields);
 
-            $data = $request->validate([
-                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'name' => 'required',
-                'email' => 'required|email',
-                'password' => 'required|confirmed',
-            ]);
+        $data = $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed',
+        ]);
 
 
-            // If user uploaded image
+        // If user uploaded image
         if ($request->hasFile('image')) {
-            $file = $request->file('image')->store('images/students', 'public');
-            $data['image'] = $file;
-        } else {
-            // Use default image
-            $data['image'] = 'images/students/AbznCHQHkQFdlWabExWoIAJX4OZmaprSPwWwltBw.png';
+            $file = $request->file('image');
+            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/students'), $fileName);
+            $data['image'] = $fileName;
         }
-            $data['status'] = 15;
+        $data['status'] = 15;
 
 
-            $data = User::create($data);
-            $fk_u_id = $data->id;
+        $data = User::create($data);
+        $fk_u_id = $data->id;
 
-            $addedBy = Auth::user()->id;
-            $campus = campus::where('fk_u_id', $addedBy)->first();
-            $fk_campus_id = $campus->id;
-            $fk_scl_id = $campus->fk_scl_id;
+        $addedBy = Auth::user()->id;
+        $campus = campus::where('fk_u_id', $addedBy)->first();
+        $fk_campus_id = $campus->id;
+        $fk_scl_id = $campus->fk_scl_id;
 
-            $student = student::create([
-                'fk_campus_id' => $fk_campus_id,
-                'fk_scl_id' => $fk_scl_id,
-                'addedBy'=> $addedBy,
-                'fk_u_id'=> $fk_u_id,
-                'status'=> 0,
-                'fk_parent_id'=>$request->parent,
-                'religion'=>$request->religion,
-                'phone'=>$request->phone,
-                'phone2'=>$request->phone2,
-                'cnic'=>$request->cnic,
-                'date_of_birth'=>$request->DOB,
-                'gender'=>$request->gender,
-                'join_date'=>$request->j_date,
-                'referance'=>$request->referance,
-                'department'=>$request->department,
-                'fk_session_id'=>$request->session,
-                'fk_class_id'=>$request->class,
-                'fk_sec_id'=>$request->section,
-                'classFee'=>$request->class_fee,
-                'discount'=>$request->cls_fee_dsc,
-                'fee_start_date'=>$request->fee_start_date,
-                't_fee'=>$request->t_fee,
-                'fee_type_id'=>implode('#', $request->feeTypeId),
-                'fee_type_value'=>implode('#', $request->feeType),
-                'prev_class'=>$request->prev_class,
-                'passing_year'=>$request->pass_year,
-                'total_marks'=>$request->t_mark,
-                'obtn_marks'=>$request->o_mark,
-                'school_board'=>$request->board,
-                'address'=>$request->address,
-            ]);
-
-
-
-
-        return back()->with(['status'=> 'successfully record has been added!']);
-
-        }
+        $student = student::create([
+            'fk_campus_id' => $fk_campus_id,
+            'fk_scl_id' => $fk_scl_id,
+            'addedBy' => $addedBy,
+            'fk_u_id' => $fk_u_id,
+            'status' => 0,
+            'fk_parent_id' => $request->parent,
+            'religion' => $request->religion,
+            'phone' => $request->phone,
+            'phone2' => $request->phone2,
+            'cnic' => $request->cnic,
+            'date_of_birth' => $request->DOB,
+            'gender' => $request->gender,
+            'join_date' => $request->j_date,
+            'referance' => $request->referance,
+            'department' => $request->department,
+            'fk_session_id' => $request->session,
+            'fk_class_id' => $request->class,
+            'fk_sec_id' => $request->section,
+            'classFee' => $request->class_fee,
+            'discount' => $request->cls_fee_dsc,
+            'fee_start_date' => $request->fee_start_date,
+            't_fee' => $request->t_fee,
+            'fee_type_id' => implode('#', $request->feeTypeId),
+            'fee_type_value' => implode('#', $request->feeType),
+            'prev_class' => $request->prev_class,
+            'passing_year' => $request->pass_year,
+            'total_marks' => $request->t_mark,
+            'obtn_marks' => $request->o_mark,
+            'school_board' => $request->board,
+            'address' => $request->address,
+            'sub_dep' => $request->sub_dep,
+            'semester' => $request->semester,
+        ]);
 
 
-    public function Students(){
+        return back()->with(['status' => 'successfully record has been added!']);
+
+    }
+
+
+    public function Students()
+    {
         $feeType = feeType::all();
         $session = session::all();
         $class = myClass::all();
@@ -201,13 +203,17 @@ class StudentsController extends Controller
 
         }
 
-       return view('Students.addStudents')->with(['parents' => $parents, 'feeType' => $feeType, 'session' => $session, 'class' => $class, 'students' => $students , 'fees'=>$feeArray]);
+        return view('Students.addStudents')->with(['parents' => $parents, 'feeType' => $feeType, 'session' => $session, 'class' => $class, 'students' => $students, 'fees' => $feeArray]);
     }
-    public function SelectClass(){
-       return view('Students.listByClass');
+
+    public function SelectClass()
+    {
+        return view('Students.listByClass');
     }
-    public function SelectSession(){
-       return view('Students.listBySession');
+
+    public function SelectSession()
+    {
+        return view('Students.listBySession');
     }
 
 

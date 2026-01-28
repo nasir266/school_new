@@ -84,11 +84,13 @@
                                         </div>
                                         <div class="col-xl-4 col-lg-6 col-12 form-group">
                                             <label>Password</label>
-                                            <input name="password" type="password" placeholder="Enter password" class="form-control">
+                                            <input name="password" id="password" type="password" placeholder="Enter password..." class="form-control">
+                                            <i class="fa fa-eye toggle-eye" onclick="togglePassword('password', this)"></i>
                                         </div>
                                         <div class="col-xl-4 col-lg-6 col-12 form-group">
                                             <label>Confirm Password</label>
-                                            <input name="password_confirmation" type="password" placeholder="Confirm Password" class="form-control">
+                                            <input name="password_confirmation" id="confirm_password" type="password" placeholder="Confirm password..." class="form-control">
+                                            <i class="fa fa-eye toggle-eye" onclick="togglePassword('confirm_password', this)"></i>
                                         </div>
                                     </div>
                                     <!-- Owner Information  -->
@@ -218,6 +220,41 @@
                 ? userText + extraText
                 : '';
         });
+
+        // generate password auto
+        document.addEventListener("DOMContentLoaded", function () {
+            const password = generatePassword();
+            document.getElementById("password").value = password;
+            document.getElementById("confirm_password").value = password;
+        });
+
+        function generatePassword() {
+            const length = 12;
+            const chars =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@";
+
+            let password = "";
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * chars.length);
+                password += chars[randomIndex];
+            }
+            return password;
+        }
+
+        //     toggle input password fields
+        function togglePassword(fieldId, icon) {
+            const field = document.getElementById(fieldId);
+
+            if (field.type === "password") {
+                field.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                field.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
     </script>
 
     <!-- Page Area End Here -->

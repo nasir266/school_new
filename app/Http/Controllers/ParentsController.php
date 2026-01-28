@@ -11,12 +11,13 @@ use Illuminate\Support\Facades\DB;
 
 class ParentsController extends Controller
 {
-    public function Parents(){
+    public function Parents()
+    {
         $parents = DB::table('parents')
             ->join('users', 'parents.fk_u_id', '=', 'users.id')
             ->get();
 
-       return view("Parents.addParents")->with(['parents'=>$parents]);
+        return view("Parents.addParents")->with(['parents' => $parents]);
     }
 
     public function addParents(Request $request)
@@ -29,17 +30,14 @@ class ParentsController extends Controller
             'password' => 'required|confirmed',
         ]);
 
-        // $file = $request->file('image')->store('images/parents', 'public');
-               // If user uploaded image
+
         if ($request->hasFile('image')) {
-            $file = $request->file('image')->store('images/parents', 'public');
-            $data['image'] = $file;
-        } else {
-            // Use default image
-            $data['image'] = 'images/students/AbznCHQHkQFdlWabExWoIAJX4OZmaprSPwWwltBw.png';
+            $file = $request->file('image');
+            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/parents'), $fileName);
+            $data['image'] = $fileName;
         }
         $data['status'] = 14;
-        // $data['image'] = $file ?? null;  
 
 
         $data = User::create($data);
@@ -50,24 +48,23 @@ class ParentsController extends Controller
         $fk_campus_id = $campus->id;
         $fk_scl_id = $campus->fk_scl_id;
 
-         $parent = parents::create([
+        $parent = parents::create([
             'fk_campus_id' => $fk_campus_id,
             'fk_scl_id' => $fk_scl_id,
-            'addedBy'=> $addedBy,
-            'fk_u_id'=> $fk_u_id,
-            'status'=> 0,
-            'cnic'=>$request->cnic,
-            'phone1'=>$request->phone1,
-            'phone2'=>$request->phone2,
-            'phone_whatsapp'=>$request->phoneWhatsApp,
-            'relationship'=>$request->relationship,
-            'occupation'=>$request->occupation,
-            'address'=>$request->address,
+            'addedBy' => $addedBy,
+            'fk_u_id' => $fk_u_id,
+            'status' => 0,
+            'cnic' => $request->cnic,
+            'phone1' => $request->phone1,
+            'phone2' => $request->phone2,
+            'phone_whatsapp' => $request->phoneWhatsApp,
+            'relationship' => $request->relationship,
+            'occupation' => $request->occupation,
+            'address' => $request->address,
         ]);
 
 
-
-        return back()->with(['status'=> 'successfully record has been added!']);
+        return back()->with(['status' => 'successfully record has been added!']);
 
     }
 }
